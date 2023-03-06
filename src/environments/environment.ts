@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  brandUrl: "assets/datas/brands.json",
+  payloadUrl: "assets/datas/payload-rmp.json"
 };
 
 /*
