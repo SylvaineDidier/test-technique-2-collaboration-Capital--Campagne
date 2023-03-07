@@ -1,0 +1,74 @@
+<div class="d-flex gap-3 mb-3  align-items-center" [formGroup]="filterForm" >
+    FILTERS 
+    <div >
+      <input type="text" (keyup)="filterElt()"  formControlName="name" class="form-control"  placeholder="Campaign name..">
+    </div>
+    <div >
+      
+      <select class="form-select" formControlName="brand" (change)="filterElt()">
+        <option selected value="" >--brand--</option>
+        <option *ngFor="let brand of brands" [value]="brand.brandId">{{brand.name}}</option>
+      </select>
+    </div>
+
+    <div class=" ms-auto">
+      <button type="button" class="btn btn-primary">Filter </button>
+    </div>
+  </div>
+
+  <div >
+    <h3 class="text-muted"> All request</h3>
+</div>
+  
+  <div class="mat-elevation-z8">
+
+    <table mat-table *ngIf="campagnes" [dataSource]="dataSource">
+  
+      <!-- Position Column -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Status </th>
+        <td mat-cell *matCellDef="let element"> 
+          <span *ngIf="element.requestStatus.value == 'Pending'"><i class="bi bi-hourglass"></i></span>
+          <span *ngIf="element.requestStatus.value ==  'To review'"><i class="bi bi-eye"></i></span>
+          <span *ngIf="element.requestStatus.value ==  'To modify'"><i class="bi bi-pencil-square"></i></span>
+          <span *ngIf="element.requestStatus.value == 'Validated'" class="text-success"><i class="bi bi-check-circle-fill "></i></span>
+          <span *ngIf="element.requestStatus.value == 'Draft'" class="text-info"><i class="bi bi-envelope-exclamation "></i></span>
+          <span *ngIf="element.requestStatus.value == 'Rejected'" class="text-danger"><i class="bi bi-x-circle "></i></span>
+          <span *ngIf="element.requestStatus.value == 'Submitted'" class="text-secondary"><i class="bi bi-envelope-check "></i></span>
+          
+           {{element.requestStatus.value}} </td>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.campaignName}} </td>
+      </ng-container>
+  
+      <!-- Weight Column -->
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef> Type </th>
+        <td mat-cell *matCellDef="let element"> <span class="badge bg-{{element.advice?'danger':'secondary'}}">{{element.advice? 'Advice':'Request'}}</span>  </td>
+      </ng-container>
+  
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="brand">
+        <th mat-header-cell *matHeaderCellDef> Brand </th>
+        <td mat-cell *matCellDef="let element"> {{element.brand.name}} </td>
+      </ng-container>
+  
+       <!-- Symbol Column -->
+       <ng-container matColumnDef="submission">
+        <th mat-header-cell *matHeaderCellDef> Submission </th>
+        <td mat-cell *matCellDef="let element"> {{element.submittedDate|date}} </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row style="cursor: pointer;" [routerLink]="['/update/', element.requestId]" *matRowDef="let row; let element, columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                   showFirstLastButtons
+                   aria-label="Select page of periodic elements">
+    </mat-paginator>
+  </div>

@@ -1,1 +1,33 @@
-<p>update-campagne works!</p>
+
+<div class="mat-elevation-z8 p-5 col-md-6 mx-auto">
+     <a href=""><i class="bi bi-arrow-left" [routerLink]="['/']"  ></i> Back to list</a>
+    <hr>
+    <div [formGroup]="updateForm" class="d-flex flex-column">
+        <mat-form-field>
+            <mat-select placeholder="Select the brand" formControlName="brand">
+                <mat-option *ngFor="let item of dataServ.Brands"  [value]="item.brandId">
+                    {{item.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        
+        <mat-form-field>
+            <input matInput formControlName="campaignName" placeholder="Campaign name" value="value">
+        </mat-form-field>
+
+        <div class="row justify-content-center mb-3">
+            <div class="col-6" *ngFor="let media of medias; let index= index">
+                <mat-checkbox [checked]="media.checked"  >{{media.name}}</mat-checkbox> <br *ngIf="index%2 == 0">
+            </div>
+        </div>
+        
+
+        <mat-form-field appearance="fill" floatLabel="always" >
+            <mat-label>Deadline for decision</mat-label>
+            <input matInput formControlName="decisionDeadline" [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        
+    </div>
+</div>
