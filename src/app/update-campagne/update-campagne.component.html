@@ -3,7 +3,7 @@
      <a href=""><i class="bi bi-arrow-left" [routerLink]="['/']"  ></i> Back to list</a>
     <hr>
     <div [formGroup]="updateForm" class="d-flex flex-column">
-        <mat-form-field>
+        <mat-form-field class="mb-2">
             <mat-select placeholder="Select the brand" formControlName="brand">
                 <mat-option *ngFor="let item of dataServ.Brands"  [value]="item.brandId">
                     {{item.name}}
@@ -11,10 +11,11 @@
             </mat-select>
         </mat-form-field>
         
-        <mat-form-field>
+        <mat-form-field class="mb-2">
             <input matInput formControlName="campaignName" placeholder="Campaign name" value="value">
         </mat-form-field>
-
+        
+        Media*
         <div class="row justify-content-center mb-3">
             <div class="col-6" *ngFor="let media of medias; let index= index">
                 <mat-checkbox [checked]="media.checked"  >{{media.name}}</mat-checkbox> <br *ngIf="index%2 == 0">

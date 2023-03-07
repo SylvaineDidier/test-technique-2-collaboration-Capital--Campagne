@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { DatasService } from '../services/datas.service';
 import { Media } from '../shared/models';
@@ -11,10 +11,10 @@ import { Media } from '../shared/models';
 })
 export class UpdateCampagneComponent implements OnInit {
   updateForm = this.fb.group({
-    brand: [],
-    campaignName: [],
+    brand: [null,Validators.required],
+    campaignName: [null, Validators.required],
     media: [],
-    decisionDeadline: [],
+    decisionDeadline: [null, Validators.required],
   })
   currentCampaign;
   medias: Array<Media> = [
